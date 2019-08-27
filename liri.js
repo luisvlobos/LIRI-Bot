@@ -28,17 +28,21 @@ function concert(){
 function spotifyArtists() {
     var Spotify = require('node-spotify-api');
     let song = process.argv.slice(3).join(' ');
- 
+    
     var spotify = new Spotify({
         id: '3d419acd23004f0f89dabf71dc9d55eb',
         secret: 'a8ccb7135445419385d5ffeb43efa3ad'
     });
-    
-    spotify.search({ type: 'track', query: song }, function(err, data) {
-    if (err) {
-        return console.log('Error occurred: ' + err);
-    }
-    
-    console.log(data); 
-    });
+     
+    spotify
+      .search({ type: 'track', query: song })
+      .then(function(response) {
+        var songData = response.tracks.items[0];
+        console.log(songData.artists[0].name);
+        console.log(songData.album.external_urls.spotify);
+        console.log(songData.album.name);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
 }
