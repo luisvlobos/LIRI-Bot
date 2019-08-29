@@ -46,3 +46,7 @@ function spotifyArtists() {
         console.log(err);
       });
 }
+
+function movieThis () {
+    let movieName = process.argv.slice(3).join(' ');
+}
