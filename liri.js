@@ -8,6 +8,8 @@ if(input === 'concert-this'){
     concert();
 } else if(input === 'spotify-this-song'){
     spotifyArtists();
+} else if(input === 'movie-this') {
+    movieThis();
 }
 
 function concert(){
@@ -48,5 +50,21 @@ function spotifyArtists() {
 }
 
 function movieThis () {
+    const axios = require('axios');
     let movieName = process.argv.slice(3).join(' ');
+
+    let url = 'http://www.omdbapi.com/?apikey=trilogy&t=' + movieName;
+
+    axios.get(url)
+    .then(function (response) {
+        let results = response.data;
+        console.log(results.Title);
+        console.log(results.Year);
+        console.log(results.Ratings[0].Value);
+        console.log(results.Ratings[1].Value);
+        console.log(results.Country);
+        console.log(results.Language);
+        console.log(results.Plot);
+        console.log(results.Actors);
+    })
 }
